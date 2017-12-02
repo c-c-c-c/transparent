@@ -101,7 +101,7 @@ function renderHandSpinner() {
     material = mat;
 
     for (var i = 0; i < howManySpinners; i++) {
-      var phongMat = new THREE.MeshPhongMaterial(mat);
+      var phongMat = new THREE.MeshPhongMaterial(mat, { transparent: true, opacity: 0.9 });
       model[i] = new THREE.Mesh(geo, phongMat);
 
       var randX = 600 * Math.random() - 300;
@@ -117,6 +117,8 @@ function renderHandSpinner() {
       model[i].scale.set(0.5, 0.5, 0.5);
       var randColor = Math.random() * 0xffffff;
       model[i].material.color = new THREE.Color(randColor);
+      model[i].material.opacity = 0.3;
+      model[i].material.transparent = true;
       scene.add(model[i]);
     }
     render();
@@ -139,7 +141,6 @@ function addSpinner() {
 }
 
 function render() {
-  console.log("coming");
 
   requestAnimationFrame(render);
   r_radian += 0.01;
@@ -147,7 +148,6 @@ function render() {
   for (var i = 0; i < howManySpinners; i++) {
     model[i].rotation.y += rotate_speed;
     model[i].position.y += (Math.sin(r_radian) - Math.sin(r_radian - 0.01)) * 150;
-    console.log("hoge");
   }
 
   c_radian += 0.007;
